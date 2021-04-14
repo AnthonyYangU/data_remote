@@ -9,26 +9,16 @@ var options = {
 var tcp_client = net.Socket();
 console.log(testDataArray)
 
-
+var index = 0
 // 连接 tcp server
 tcp_client.connect(options, function () {
 
-    // for (let i = 0; i < 5; i++) {
-    //     console.log(testDataArray[i])
-    //     tcp_client.write(testDataArray[i])
-    // }
-    tcp_client.write(testDataArray[0])
-    // let i = 0;
-    // function intervalFunc() {
-    //     tcp_client.write(testDataArray[i]);
-    //     i++
-    //     if (i == 5) {
-    //         i = 0
-    //     }
-    // }
-    // console.log('connected to Server');
-
-    // setInterval(intervalFunc, 1500);
+    setInterval(() => {
+        tcp_client.write(testDataArray[index++])
+        if (index == 5) {
+            index = 0
+        }
+    }, 1000)
 })
 
 // 接收数据

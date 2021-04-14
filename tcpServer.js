@@ -24,20 +24,31 @@ const tcpServer = net.createServer((socket) => {
         let headId = rd.substring(0, 4);
         console.log(socket.receiveNumber)
 
-        if (checkOnePackage(rd)) {
-            socket.write("md5 succeed");
-            console.log("md5 succeed")
-            socket.receivedDataArray.push();
-            socket.receiveNumber++;
-            if (receiveNumber == 5) {
-                transComplete(socket.receivedDataArray)
-                receiveNumber = 0;
-                socket.receivedDataArray = []
-                socket.write("One package received");
-            }
-        } else {
-            socket.write("md5 fail");
+        socket.write("received");
+        socket.receivedDataArray.push();
+        socket.receiveNumber++;
+
+        if (socket.receiveNumber == 5) {
+            transComplete(socket.receivedDataArray)
+            socket.receiveNumber = 0;
+            socket.receivedDataArray = []
+            socket.write("succeed");
         }
+
+        // if (checkOnePackage(rd)) {
+        //     socket.write("md5 succeed");
+        //     console.log("md5 succeed")
+        //     socket.receivedDataArray.push();
+        //     socket.receiveNumber++;
+        //     if (receiveNumber == 5) {
+        //         transComplete(socket.receivedDataArray)
+        //         receiveNumber = 0;
+        //         socket.receivedDataArray = []
+        //         socket.write("One package received");
+        //     }
+        // } else {
+        //     socket.write("md5 fail");
+        // }
 
     });
 
